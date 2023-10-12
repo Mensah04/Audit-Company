@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automobile Customer Audit</title>
+  <link rel="stylesheet" type="text/css" href="stylesheet/style.css">
+</head>
+<body>
+  <div>
+    <h1>Welcome!</h1>
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" placeholder="Enter full name">
+
+    <label for="referenceCode">Reference Code:</label>
+    <input type="text" id="referenceCode" placeholder="Enter reference code">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter email">
+
+    <label for="maker">Automobile Maker:</label>
+    <select id="maker" onchange="populateModels()">
+      <option value="">Select Maker</option>
+      <option value="Ford">Ford</option>
+      <option value="Nissan">Nissan</option>
+      <option value="Tesla">Tesla</option>
+      <option value="Jeep">Jeep</option>
+      <option value="Hyundai">Hyundai</option>
+      <option value="Toyota">Toyota</option>
+      <option value="Mercedes-Benz">Mercedes-Benz</option>
+      <option value="BMW">BMW</option>
+      <option value="Hunda">Hunda</option>
+      <option value="Audi">Audi</option>
+      <!-- Populate this dropdown dynamically using JavaScript -->
+    </select>
+
+    <label for="model">Automobile Model:</label>
+    <select id="model" disabled>
+      <!-- Populate this dropdown dynamically using JavaScript -->
+    </select>
+
+    <h2>Car Conditions</h2>
+    <input type="checkbox" id="engineIssue" value="Engine issue">
+    <label for="engineIssue">Engine issue</label><br>
+
+    <input type="checkbox" id="gearboxIssue" value="Gearbox issue">
+    <label for="gearboxIssue">Gearbox issue</label><br>
+
+    <input type="checkbox" id="need body repair" value="Gearbox issue">
+    <label for="gearboxIssue">Need Body Repair</label><br>
+
+    <input type="checkbox" id="need painting" value="Gearbox issue">
+    <label for="gearboxIssue">Need Painting</label><br>
+
+    <input type="checkbox" id="wiring problem" value="Gearbox issue">
+    <label for="gearboxIssue">Wiring Problem</label><br>
+
+    <input type="checkbox" id="oil leak" value="Gearbox issue">
+    <label for="gearboxIssue">Oil Leakage</label><br>
+
+    <input type="checkbox" id="break issue" value="Gearbox issue">
+    <label for="gearboxIssue">Break issue</label><br>
+
+    <!-- Add other checkboxes for different car conditions -->
+  </div>
+
+  <script>
+    // Array of automobile makers and their models
+    const automobileMakers = [
+      {
+        maker: "Toyota",
+        models: ["Corolla", "Camry", "Rav4", "Prius", "Highlander"]
+      },
+      {
+        maker: "Tesla",
+        models: ["Model 3", "Model Y", "Model X", "Roadster", "Semi"]
+      },
+      {
+        maker: "Ford",
+        models: ["Fiester", "Ranger", "Focus", "Expedition", "Edge"]
+      },
+      {
+        maker: "Audi",
+        models: ["Audi A4", "Audi A6", "Audi Q5", "Audi TT", "Audi Q8"]
+      },
+      {
+        maker: "Hyundai",
+        models: ["Elantra", "Sonata", "Accent", "Azera", "Veloster"]
+      },
+      {
+        maker: "Hunda",
+        models: ["Civic", "City", "Accord", "Pilot", "Passport"]
+      },
+      {
+        maker: "Jeep",
+        models: ["Cherokee", "Commander", "Renegade", "Wagoneer", "Patriot"]
+      },
+      {
+        maker: "BMW",
+        models: ["BMW X5", "BMW X6", "BMW Xix3", "BMW 7 series", "BMW XM"]
+      },
+      {
+        maker: "Mercedes-Benz",
+        models: ["B-Klass", "A Class", "GLA", "W201", "W126"]
+      },
+      {
+        maker: "Nissan",
+        models: ["Pathfinder", "Altima", "Micra", "Rogue", "Sentra"]
+      },
+      // Add other makers and models here
+    ];
+
+    // Function to populate the model dropdown based on the selected maker
+    function populateModels() {
+      const makerDropdown = document.getElementById("maker");
+      const modelDropdown = document.getElementById("model");
+      const selectedMaker = makerDropdown.value;
+
+      // Clear previous options
+      modelDropdown.innerHTML = '<option value="">Select Model</option>';
+
+      if (selectedMaker) {
+        const maker = automobileMakers.find(m => m.maker === selectedMaker);
+
+        if (maker) {
+          maker.models.forEach(model => {
+            const option = document.createElement("option");
+            option.value = model;
+            option.textContent = model;
+            modelDropdown.appendChild(option);
+          });
+        }
+
+        modelDropdown.disabled = false;
+      } else {
+        modelDropdown.disabled = true;
+      }
+    }
+  </script>
+  
+    <div>
+      <!-- Existing code for input fields, dropdowns, and checkboxes -->
+      <button onclick="nextButtonClick()">Next</button>
+    </div>
+  
+    <script>
+      function nextButtonClick() {
+        const fullName = document.getElementById("fullName").value;
+        const referenceCode = document.getElementById("referenceCode").value;
+        const email = document.getElementById("email").value;
+        const maker = document.getElementById("maker").value;
+        const model = document.getElementById("model").value;
+        const checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
+  
+        // Check if any field is empty
+        if (!fullName || !referenceCode || !email || !maker || !model || checkboxes.length === 0) {
+          alert("All fields including checkboxes must be filled.");
+          return;
+        }
+  
+        // Validate reference code
+        const referenceCodeRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+        if (!referenceCode.match(referenceCodeRegex)) {
+          alert("Reference code does not meet the criteria.");
+          return;
+        }
+  
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.match(emailRegex)) {
+          alert("Invalid email address.");
+          return;
+        }
+  
+        // Navigate to the next page with the collected data
+        const customerData = {
+          fullName,
+          referenceCode,
+          email,
+          maker,
+          model,
+          carConditions: Array.from(checkboxes).map(checkbox => checkbox.value)
+        };
+        localStorage.setItem("customerData", JSON.stringify(customerData));
+
+// Replace 'second_page.html' with the correct path to your second page
+window.location.href ="c:\\Users\\USER\\Audit\\second_page.html";
+
+        // Pass customerData to the next page or perform any necessary action
+        console.log("Customer data:", customerData);
+      }
+    </script>
+    
+</body>
+</html>

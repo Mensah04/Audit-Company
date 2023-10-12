@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automobile Customer Audit</title>
+  <link rel="stylesheet" type="type/css" href="stylesheet/style.css">
+</head>
+<body>
+  
+  <div>
+    <!-- Existing code for input fields, dropdowns, and checkboxes -->
+    <div>
+        <h1>Customer Information</h1>
+        <div id="customerInfo"></div>
+        <button onclick="submitData()">Submit</button>
+      </div>
+    
+      <script>
+                // Retrieve customer data from localStorage (from the first page)
+                const storedCustomerData = JSON.parse(localStorage.getItem("customerData"));
+    
+    // Display customer information if available
+    if (storedCustomerData) {
+      displayCustomerInfo(storedCustomerData);
+    } else {
+      console.error("Customer data not found.");
+      window.location.href ="c:\\Users\\USER\\Audit\\home.html"; 
+    }
+        function displayCustomerInfo(data) {
+          const formattedName = data.fullName.length > 30 ? `${data.fullName.substring(0, 30)}...` : data.fullName;
+          const formattedConditions = data.carConditions.join(', ');
+    
+          const customerInfoDiv = document.getElementById("customerInfo");
+          customerInfoDiv.innerHTML = `
+            <p><strong>Name:</strong> ${formattedName}</p>
+            <p><strong>Email:</strong> ${data.email}</p>
+            <p><strong>Reference Code:</strong> ${data.referenceCode}</p>
+            <p><strong>Make:</strong> ${data.maker}</p>
+            <p><strong>Model:</strong> ${data.model}</p>
+            <p><strong>Conditions:</strong> ${formattedConditions}</p>
+          `;
+        }
+    
+          console.log("Customer Data (JSON):", JSON.stringify(customerData));
+    
+        if (storedCustomerData) {
+          displayCustomerInfo(storedCustomerData);
+        } else {
+          console.error("Customer data not found.");
+        }
+    
+  </script>
+  <script>
+    // Function to display customer information in a presentable format
+    function displayCustomerInfo(data) {
+      const formattedName = data.fullName.length > 30 ? `${data.fullName.substring(0, 30)}...` : data.fullName;
+      const formattedConditions = data.carConditions.join(', ');
+
+      const customerInfoDiv = document.getElementById("customerInfo");
+      customerInfoDiv.innerHTML = `
+        <p><strong>Name:</strong> ${formattedName}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Reference Code:</strong> ${data.referenceCode}</p>
+        <p><strong>Make:</strong> ${data.maker}</p>
+        <p><strong>Model:</strong> ${data.model}</p>
+        <p><strong>Conditions:</strong> ${formattedConditions}</p>
+      `;
+    }
+
+    // Function to submit the final data as JSON and log to console
+    function submitData() {
+      const customerData = {
+        name: document.getElementById("fullName").value,
+        email: document.getElementById("email").value,
+        refcode: document.getElementById("referenceCode").value,
+        make: document.getElementById("maker").value,
+        model: document.getElementById("model").value,
+        conditions: Array.from(document.querySelectorAll("input[type=checkbox]:checked"))
+          .map(checkbox => checkbox.value)
+      };
+
+      // Log the customer data as JSON to the console
+      console.log("Customer Data (JSON):", JSON.stringify(customerData));
+    }
+  </script>
+</body>
+</html>

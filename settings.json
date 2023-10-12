@@ -1,0 +1,47 @@
+{
+    "workbench.colorTheme": "Default Dark Modern",
+    "launch": {
+        "configurations": [
+            {
+                "type": "chrome",
+                "request": "launch",
+                "name": "chrome",
+                "url": "http://localhost:5500",
+                "webRoot": "${workspaceFolder}"
+            },
+            {
+                "name": "Launch Edge",
+                "request": "launch",
+                "type": "msedge",
+                "url": "http://localhost:5500",
+                "webRoot": "${workspaceFolder}"
+            },
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:5500",
+            "webRoot": "${workspaceFolder}"
+        }
+        ]
+    },
+    "[html]": {
+        "breadcrumbs.showArrays": true,
+        "editor.suggest.insertMode": "replace",
+        "editor.formatOnType": true
+    },
+    "files.associations": {
+        "*.php": "html"
+    },
+    "window.zoomLevel": 1,
+    "vscode-edge-devtools.webhint": false,
+    "editor.minimap.enabled": false,
+    "python.defaultInterpreterPath": "C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "[json]": {
+        
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace"
+    }
+}
